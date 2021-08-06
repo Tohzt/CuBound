@@ -1,0 +1,3 @@
+! EDITOR
+	[- Black bars appear under 'Delete' button, after deleting]
+	- SOMETIMES Delete button gets stuck on big.

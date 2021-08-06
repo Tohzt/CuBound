@@ -1,0 +1,48 @@
+MENU:
+	+ Level Progress Data
+		- Unlock next level after completion
+
+EDITOR:
+	- Make Levels Clickable
+
+Game:
+	? Should there be a point system?
+		-Can be based on move count or time.
+
+Cube: 
+	+ Implement movement speed
+	+ Reintroduce animation (bounce/dive)
+	+ Fall Off Map/VOID
+		- Void currently resets to spawn I think
+	
+Buttons/Pressure Plate: 
+	+ Init
+	+ Link to subject of desired behavior
+	// Behavior:	Unlock Path		- Lovers block that is obstructing path
+					Toggle Color	- Cycle block colors
+					Teleport		- New point or room
+
+Doors:
+					
+					
+EDITOR:
+	+ Apply Action : Select then "paint"
+	+ Highlight non selectable Buttons on click
+	+ Make Maps Clickable
+	+ Hide Tools until Hover
+
+
+
+
+!!!!NEXT!!!!
+	
+	(-) Link alternat input to *insert_good_idea("please")*
+
+
+
+
+
+
+
+
+
