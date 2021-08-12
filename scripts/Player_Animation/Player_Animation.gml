@@ -1,7 +1,7 @@
 /// @function Cube_animationCurve()
 function getAnimCurve(_struct, _type) {
 	var _channel = animcurve_get_channel(_struct, _type);
-	return animcurve_channel_evaluate(_channel, curve_position);
+	return animcurve_channel_evaluate(_channel, curve_position/TILE_W);
 }
 
 function Cube_animationCurve(){
@@ -15,12 +15,11 @@ function Cube_animationCurve(){
 	}
 	
 	if (anim_bounce) {
-		anim_dur+=0.0007;
 		// Animation Curve
-		curve_position = anim_dur// = getVectorForce(vec_spd);
+		curve_position++;
 		
 		// Reset pointer
-		if curve_position % 1 curve_position = 0
+		if curve_position >= 32 curve_position = 0;
 	
 		// Bounce
 		anim_z = getAnimCurve(animcurve_get(curve_asset), "cube_bounce") * curve_upperLimit;

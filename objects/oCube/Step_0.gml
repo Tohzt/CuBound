@@ -11,13 +11,9 @@ gPos_y = (y-20) div TILE_W;
 var _row = 0;
 for (var i = 0; i < map_size; i++) {
 	for (var j = 0; j < map_size; j++) {
-		// ANIMATE DEPTH - Intro
-		//if (System.anim_blocks) iso_z += System.anim_block_z;
 		// FINISH LEVEL (SINK INTO GATE)
 		//if (is_Finished) iso_z--;
 		
-		// ANIMATE VIA CURVES
-		Cube_animationCurve();
 			
 		#region ONLY TRIGGER FOR BLOCK UNDER CUBE
 			// IDENTIFY BLOCK UNDER CUBE
@@ -25,6 +21,7 @@ for (var i = 0; i < map_size; i++) {
 				
 				// UPDATE HEIGHT
 				iso_z  = map[# BLOCKS.height,_row];
+				
 				// UPDATE COLOR
 				if ((map[# BLOCKS.type,_row]  == BLOCK 
 				||	(map[# BLOCKS.type,_row]  == SPAWN && num_moves== 0)) 
@@ -33,6 +30,7 @@ for (var i = 0; i < map_size; i++) {
 					cube_color = cube_defaultColor;
 				}
 			
+				// NOT TOUCHING VOID
 				if (map[# BLOCKS.type,_row] != VOID) {
 					Player_Input(input_delta);
 					// Get input from Keyboard
@@ -44,20 +42,15 @@ for (var i = 0; i < map_size; i++) {
 					&&	tar_pos.y == y) 
 						tar_pos = { x: x + move_x*TILE_W, y:  y + move_y*TILE_W };
 				
-					//vec_spd = {x:0,y:0}
 					// CHECK FOR STANDING
 					if (x != tar_pos.x
 					||	y != tar_pos.y) {
 						
 						var _targetBlock = get_targetBlock(tar_pos.x, tar_pos.y);
 						if (_targetBlock != "Failed") {
+							
 							// HEIGHT LIMIT
 							if (map[# BLOCKS.height, _targetBlock] == iso_z) {
-								// UPDATE ANIMATION
-								if (!anim_bounce) {
-									show_debug_message("ad: "+string(anim_dur))
-									anim_dur = 0
-								}
 								anim_bounce = true;
 								// UPDATE MOVEMENT
 								vec_spd = {
@@ -82,8 +75,11 @@ for (var i = 0; i < map_size; i++) {
 							show_debug_message("Collision Avoidance")
 							tar_pos = {x:x,y:y};
 						}
+					} // TRIGGER WHEN PLAYER LANDS ON TARGET POSITION
+					else {
+						curve_position = 0;
+						anim_bounce = false;
 					}
-					else anim_bounce = false;
 			
 					// Step On Gate
 					if (map[# BLOCKS.type,_row] == HOLE) {
@@ -141,7 +137,6 @@ if (_cubes > 1) {
 		&&	_cube.gPos_y == gPos_y) 
 		{
 			_combine_color = true;
-			show_debug_message("Combine Colors!");
 			cube_color = color_combine(cube_defaultColor, _cube.cube_defaultColor);
 			_cube.cube_color = color_combine(cube_defaultColor, _cube.cube_defaultColor);
 		}	
@@ -155,7 +150,11 @@ if (vec_spd != {x:0,y:0}) num_moves++;
 if (x == tar_pos.x && y == tar_pos.y) {
 	vec_spd = {x:0,y:0};
 }
-	
+else {
+	// TRIGGER ANIMATION
+	Cube_animationCurve();
+}
+
 // Apply Final Vector
 x += vec_spd.x;
 y += vec_spd.y;

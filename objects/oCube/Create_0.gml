@@ -19,7 +19,6 @@ gPos_x = x div TILE_W;
 gPos_y = y div TILE_W;
 init_x = x;
 init_y = y;
-init_z = 0;
 iso_z  = 0;
 
 is_onGate = false;
@@ -68,5 +67,4 @@ curve_upperLimit  = 8;
 
 // ANIMATIONS
 anim_bounce	= false;
-anim_dur	= 0;
 anim_z		= 0;
